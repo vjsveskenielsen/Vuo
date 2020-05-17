@@ -1,0 +1,36 @@
+/**
+ * @file
+ * This composition does...
+ *
+ * @copyright Copyright © 2020 [sveskenielsen](https://vuo.org/user/1454120)
+ * @see This is a Vuo Composition source code file.  See http://vuo.org for further information.
+ */
+
+digraph G
+{
+FireOnStart [type="vuo.event.fireOnStart" version="1.0.0" label="Fire on Start|<refresh>refresh\l|<started>started\r" pos="45,-45" _started_eventThrottling="enqueue"];
+NormalisedRollover [type="sveskenielsen.normalised_rollover" version="" label="Normalised_rollover|<refresh>refresh\l|<Input>Input\l|<NormalisedOutput>NormalisedOutput\r" pos="240,30" _NormalisedOutput_eventThrottling="enqueue"];
+NormalisedRollover2 [type="sveskenielsen.normalised_rollover" version="" label="Normalised_rollover|<refresh>refresh\l|<Input>Input\l|<NormalisedOutput>NormalisedOutput\r" pos="240,165" _NormalisedOutput_eventThrottling="enqueue"];
+NormalisedRollover3 [type="sveskenielsen.normalised_rollover" version="" label="Normalised_rollover|<refresh>refresh\l|<Input>Input\l|<NormalisedOutput>NormalisedOutput\r" pos="240,300" _NormalisedOutput_eventThrottling="enqueue"];
+Scale [type="vuo.math.scale.VuoReal" version="2.0.0" label="Scale|<refresh>refresh\l|<value>value\l|<start>start\l|<end>end\l|<scaledStart>scaledStart\l|<scaledEnd>scaledEnd\l|<limitToRange>limitToRange\l|<scaledValue>scaledValue\r" pos="-45,30" _start="-1" _end="1" _scaledStart="-0.10000000000000001" _scaledEnd="0.10000000000000001" _limitToRange="true"];
+Scale2 [type="vuo.math.scale.VuoReal" version="2.0.0" label="Scale|<refresh>refresh\l|<value>value\l|<start>start\l|<end>end\l|<scaledStart>scaledStart\l|<scaledEnd>scaledEnd\l|<limitToRange>limitToRange\l|<scaledValue>scaledValue\r" pos="-45,165" _start="-1" _end="1" _scaledStart="-0.10000000000000001" _scaledEnd="0.10000000000000001" _limitToRange="true"];
+Scale5 [type="vuo.math.scale.VuoReal" version="2.0.0" label="Scale|<refresh>refresh\l|<value>value\l|<start>start\l|<end>end\l|<scaledStart>scaledStart\l|<scaledEnd>scaledEnd\l|<limitToRange>limitToRange\l|<scaledValue>scaledValue\r" pos="-45,300" _start="-1" _end="1" _scaledStart="-0.10000000000000001" _scaledEnd="0.10000000000000001" _limitToRange="true"];
+SelectInput2 [type="vuo.select.in.boolean.VuoReal" version="2.0.0" label="Select Input|<refresh>refresh\l|<which>which\l|<falseOption>falseOption\l|<trueOption>trueOption\l|<out>out\r" pos="105,30" _which="false"];
+SelectInput3 [type="vuo.select.in.boolean.VuoReal" version="2.0.0" label="Select Input|<refresh>refresh\l|<which>which\l|<falseOption>falseOption\l|<trueOption>trueOption\l|<out>out\r" pos="105,165" _which="false"];
+SelectInput4 [type="vuo.select.in.boolean.VuoReal" version="2.0.0" label="Select Input|<refresh>refresh\l|<which>which\l|<falseOption>falseOption\l|<trueOption>trueOption\l|<out>out\r" pos="105,300" _which="false"];
+PublishedInputs [type="vuo.in" label="PublishedInputs|<SpeedA>SpeedA\r|<SpeedB>SpeedB\r|<SpeedC>SpeedC\r" _SpeedA_type="VuoReal" _SpeedA="0" _SpeedA_suggestedMin="-1" _SpeedA_suggestedMax="1" _SpeedA_suggestedStep="0" _SpeedB_type="VuoReal" _SpeedB="0" _SpeedB_suggestedMin="-1" _SpeedB_suggestedMax="1" _SpeedB_suggestedStep="0" _SpeedC_type="VuoReal" _SpeedC="0" _SpeedC_suggestedMin="-1" _SpeedC_suggestedMax="1" _SpeedC_suggestedStep="0"];
+PublishedOutputs [type="vuo.out" label="PublishedOutputs|<NormalisedOutputA>NormalisedOutputA\l|<NormalisedOutputB>NormalisedOutputB\l|<NormalisedOutputC>NormalisedOutputC\l" _NormalisedOutputA_type="VuoReal" _NormalisedOutputB_type="VuoReal" _NormalisedOutputC_type="VuoReal"];
+
+NormalisedRollover2:NormalisedOutput -> PublishedOutputs:NormalisedOutputB;
+NormalisedRollover3:NormalisedOutput -> PublishedOutputs:NormalisedOutputC;
+NormalisedRollover:NormalisedOutput -> PublishedOutputs:NormalisedOutputA;
+PublishedInputs:SpeedA -> Scale:value;
+PublishedInputs:SpeedB -> Scale2:value;
+PublishedInputs:SpeedC -> Scale5:value;
+Scale2:scaledValue -> SelectInput3:falseOption;
+Scale5:scaledValue -> SelectInput4:falseOption;
+Scale:scaledValue -> SelectInput2:falseOption;
+SelectInput2:out -> NormalisedRollover:Input;
+SelectInput3:out -> NormalisedRollover2:Input;
+SelectInput4:out -> NormalisedRollover3:Input;
+}
